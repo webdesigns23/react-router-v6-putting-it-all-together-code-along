@@ -1,6 +1,12 @@
 function BookCard() {
-    // Replace with dynamic data
-    const book = null
+    const bookstores = []
+    const id = null
+
+    const bookstore = bookstores.find(store => store.id === id)
+
+    if (!bookstore) return <h2>Bookstore not found.</h2>
+
+    const book = bookstore.books.find(b => b.id === bookId)
   
     if (!book) return <h2>Book not found.</h2>
   

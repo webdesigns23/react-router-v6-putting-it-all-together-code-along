@@ -11,12 +11,25 @@ const BookstoreContainer = () => {
       .catch(console.error)
   }, [])
 
+  const addBookstore = (newBookstore) => {
+    setBookstores(previousStores => [...previousStores, newBookstore])
+  }
+
+  const updateBookstore = (updatedBookstore) => {
+    setBookstores(previousStores => previousStores.map(store => {
+        if (store.id === updatedBookstore.id) {
+            return updatedBookstore
+        }
+        return store
+    }))
+  }
+
   return (
     <>
       <NavBar />
       <main>
         <h1>🏬 Bookstores Directory</h1>
-        {/* Students will add Outlet here for nested routes */}
+        <a>Add a new Bookstore</a>
       </main>
     </>
   )

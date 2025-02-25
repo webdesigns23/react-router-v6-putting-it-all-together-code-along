@@ -3,21 +3,9 @@ import "./NavBar.css"
 function NavBar() {
   return (
     <nav className="navbar">
-      <a
-        className="nav-link"
-      >
-        Home
-      </a>
-      <a
-        className="nav-link"
-      >
-        Bookstores
-      </a>
-      <a
-        className="nav-link"
-      >
-        About
-      </a>
+      <a>Home</a>
+      <a>Bookstores</a>
+      <a>About</a>
     </nav>
   )
 }

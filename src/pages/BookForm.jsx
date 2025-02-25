@@ -1,15 +1,42 @@
 import { useState } from "react"
+import { v4 as uuidv4 } from 'uuid'
 
 function BookForm() {
   const [title, setTitle] = useState("")
   const [author, setAuthor] = useState("")
   const [pages, setPages] = useState("")
 
+  const bookstores = []
+  const id = null
+  const bookstore = bookstores.find(store => store.id === id)
+  
+  if (!bookstore) { return <h2>Bookstore not found.</h2>}
+
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    const newBook = { title, author, pages: parseInt(pages) }
+    const newBook = { 
+        id: uuidv4(),
+        title, 
+        author, 
+        pages: parseInt(pages) 
+    }
     console.log(newBook)
-    // Students will add fetch, state handling, and navigation
+    fetch(`http://localhost:4000/bookstores/${id}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({books: [...bookstore.books, newBook]})
+    })
+    .then(r => {
+        if (!r.ok) { throw new Error("failed to add book") }
+        return r.json()
+    })
+    .then(updatedBookstore => {
+        console.log(updatedBookstore)
+    })
+    .catch(console.log)
   }
 
   return (

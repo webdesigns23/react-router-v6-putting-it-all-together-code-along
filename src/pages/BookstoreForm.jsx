@@ -1,4 +1,3 @@
-// src/pages/BookstoreForm.jsx
 import { useState } from "react"
 
 function BookstoreForm() {
@@ -9,7 +8,21 @@ function BookstoreForm() {
     e.preventDefault()
     const newStore = { name, location, books: [] }
     console.log(newStore)
-    // Students will add fetch, state handling, and programmatic navigation
+    fetch("http://localhost:4000/bookstores", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newStore)
+    })
+    .then(r => {
+        if (!r.ok) { throw new Error("failed to save bookstore") }
+        return r.json()
+    })
+    .then(store => {
+        console.log(store)
+    })
+    .catch(console.log)
   }
 
   return (
