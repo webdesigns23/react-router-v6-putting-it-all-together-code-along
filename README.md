@@ -123,6 +123,7 @@ import BookstoreContainer from "./pages/BookstoreContainer"
 import BookstoreCard from "./pages/BookstoreCard"
 import BookForm from "./pages/BookForm"
 import BookCard from "./pages/BookCard"
+import BookstoreList from "./pages/BookForm"
 import BookstoreForm from "./pages/BookstoreForm"
 
 const App = () => (
@@ -131,7 +132,7 @@ const App = () => (
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/bookstores" element={<BookstoreContainer />}>
-        <Route path="" element={<BookstoreCard />} />
+        <Route path="" element={<BookstoreList />} />
         <Route path="new" element={<BookstoreForm />} />
         <Route path=":id" element={<BookstoreCard />} />
       </Route>
@@ -195,6 +196,7 @@ import BookstoreContainer from "./pages/BookstoreContainer"
 import BookstoreCard from "./pages/BookstoreCard"
 import BookForm from "./pages/BookForm"
 import BookCard from "./pages/BookCard"
+import BookstoreList from "./pages/BookForm"
 import BookstoreForm from "./pages/BookstoreForm"
 
 const App = () => (
@@ -203,7 +205,7 @@ const App = () => (
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/bookstores" element={<BookstoreContainer />}>
-        <Route path="" element={<BookstoreCard />} />
+        <Route path="" element={<BookstoreList />} />
         <Route path="new" element={<BookstoreForm />} />
         <Route path=":id" element={<BookstoreCard />}>
           <Route path="books/new" element={<BookForm />} />
