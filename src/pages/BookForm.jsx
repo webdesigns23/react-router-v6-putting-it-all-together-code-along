@@ -1,6 +1,6 @@
 import { useState } from "react"
-// import useOutletContext and useParams
-import { useOutletContext, useParams } from "react-router-dom"
+// import useOutletContext and useParams, useNavigate
+import { useOutletContext, useParams, useNavigate } from "react-router-dom"
 import { v4 as uuidv4 } from 'uuid'
 
 function BookForm() {
@@ -9,44 +9,49 @@ function BookForm() {
   const [pages, setPages] = useState("")
 
   //const bookstores = []
-   // destructure bookstores and updateBookstore from outlet context
+  // destructure bookstores and updateBookstore from outlet context
   const { bookstores, updateBookstore } = useOutletContext()
+
+  // call useNavigate hook to get navigate function 
+  const navigate = useNavigate();
 
   //const id = null
   // get bookstore id from params
-  const {id} = useParams()
+  const { id } = useParams()
 
   // find bookstore using id and all bookstores
-  const bookstore = bookstores.find(store => store.id === id)  
-  if (!bookstore) { return <h2>Bookstore not found.</h2>}
+  const bookstore = bookstores.find(store => store.id === id)
+  if (!bookstore) { return <h2>Bookstore not found.</h2> }
 
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const newBook = { 
-        id: uuidv4(),
-        title, 
-        author, 
-        pages: parseInt(pages) 
+    const newBook = {
+      id: uuidv4(),
+      title,
+      author,
+      pages: parseInt(pages)
     }
     console.log(newBook)
     fetch(`http://localhost:4000/bookstores/${id}`, {
-        method: "PATCH",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({books: [...bookstore.books, newBook]})
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ books: [...bookstore.books, newBook] })
     })
-    .then(r => {
+      .then(r => {
         if (!r.ok) { throw new Error("failed to add book") }
         return r.json()
-    })
-    .then(updatedBookstore => {
+      })
+      .then(updatedBookstore => {
         //console.log(updatedBookstore)
         //Now use updateBookstore to set state from api response
         updateBookstore(updatedBookstore)
-    })
-    .catch(console.log)
+        //Navigate to new book page
+        navigate(`/bookstores${id}/books${newBook.id}`)
+      })
+      .catch(console.log)
   }
 
   return (
