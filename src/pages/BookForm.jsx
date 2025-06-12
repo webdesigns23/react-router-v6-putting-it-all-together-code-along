@@ -1,4 +1,6 @@
 import { useState } from "react"
+// import useOutletContext and useParams
+import { useOutletContext, useParams } from "react-router-dom"
 import { v4 as uuidv4 } from 'uuid'
 
 function BookForm() {
@@ -6,10 +8,16 @@ function BookForm() {
   const [author, setAuthor] = useState("")
   const [pages, setPages] = useState("")
 
-  const bookstores = []
-  const id = null
-  const bookstore = bookstores.find(store => store.id === id)
-  
+  //const bookstores = []
+   // destructure bookstores and updateBookstore from outlet context
+  const { bookstores, updateBookstore } = useOutletContext()
+
+  //const id = null
+  // get bookstore id from params
+  const {id} = useParams()
+
+  // find bookstore using id and all bookstores
+  const bookstore = bookstores.find(store => store.id === id)  
   if (!bookstore) { return <h2>Bookstore not found.</h2>}
 
 
@@ -34,7 +42,9 @@ function BookForm() {
         return r.json()
     })
     .then(updatedBookstore => {
-        console.log(updatedBookstore)
+        //console.log(updatedBookstore)
+        //Now use updateBookstore to set state from api response
+        updateBookstore(updatedBookstore)
     })
     .catch(console.log)
   }

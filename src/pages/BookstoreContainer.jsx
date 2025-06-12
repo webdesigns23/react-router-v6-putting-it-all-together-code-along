@@ -13,10 +13,12 @@ const BookstoreContainer = () => {
       .catch(console.error)
   }, [])
 
+  //Add a Bookstore
   const addBookstore = (newBookstore) => {
     setBookstores(previousStores => [...previousStores, newBookstore])
   }
-
+  
+  //Update a bookstore
   const updateBookstore = (updatedBookstore) => {
     setBookstores(previousStores => previousStores.map(store => {
         if (store.id === updatedBookstore.id) {
@@ -34,7 +36,9 @@ const BookstoreContainer = () => {
          {/* update a tag to Link component */}
         <Link to="new">Add a new Bookstore</Link>
         {/* add Outlet component */} 
-        <Outlet />
+        {/* Now add context for bookstore, addBookstore, and updateBookstore */}
+        <Outlet context={{bookstores, addBookstore, updateBookstore}}/>
+      
       </main>
     </>
   )

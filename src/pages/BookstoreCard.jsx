@@ -1,9 +1,14 @@
-//import Outlet, and import Link
-import { Link, Outlet } from "react-router-dom"
+//import Outlet, Link, useOutletContext, useParams
+import { Link, Outlet, useOutletContext, useParams } from "react-router-dom"
 
 function BookstoreCard() {
-  const bookstores = null
-  const id = null
+  //const bookstores = null
+  // Now get value of bookstores from outlet context
+  const { bookstores, updateBookstore } = useOutletContext()
+
+  //const id = null
+  // Now get id of bookstore from route params
+  const { id } = useParams()
 
   const bookstore = bookstores.find(b => b.id === id)
 
@@ -22,9 +27,10 @@ function BookstoreCard() {
           </li>
         ))}
       </ul>
-        {/* update to Link component */}
-        <Link to="books/new">Add New Book</Link>
-        <Outlet />
+      {/* update to Link component */}
+      <Link to="books/new">Add New Book</Link>
+      {/* add bookstores and updateBookstore to context */}
+      <Outlet context={{bookstores, updateBookstore}} />
     </div>
   )
 }

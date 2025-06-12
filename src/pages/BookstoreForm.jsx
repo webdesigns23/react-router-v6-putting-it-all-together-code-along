@@ -1,8 +1,13 @@
 import { useState } from "react"
+// import useOutletContext
+import { useOutletContext } from "react-router-dom"
 
 function BookstoreForm() {
   const [name, setName] = useState("")
   const [location, setLocation] = useState("")
+
+  // Now destructure addBookstore from useOutletContext
+  const { addBookstore } = useOutletContext()
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -20,7 +25,9 @@ function BookstoreForm() {
         return r.json()
     })
     .then(store => {
-        console.log(store)
+        //console.log(store)
+        //Now use addBookstore to update state
+        addBookstore(store)
     })
     .catch(console.log)
   }
